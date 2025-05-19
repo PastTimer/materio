@@ -27,147 +27,33 @@
         <span class="badge bg-danger rounded-pill ms-auto">5</span>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="{% get_theme_variables 'live_preview' %}dashboard/crm/" class="menu-link" target="_blank">
-            <div class="text-truncate" data-i18n="CRM">CRM</div>
-            <span class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</span>
-          </a>
-        </li>
         <li class="menu-item {% if 'index' == request.resolver_match.url_name %}active{% endif %}">
           <a href="{% url 'index' %}" class="menu-link">
             <div class="text-truncate" data-i18n="Analytics">Analytics</div>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="{% get_theme_variables 'live_preview' %}app/ecommerce/dashboard/" class="menu-link" target="_blank">
-            <div class="text-truncate" data-i18n="eCommerce">eCommerce</div>
-            <span class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="{% get_theme_variables 'live_preview' %}app/logistics/dashboard/" class="menu-link" target="_blank">
-            <div class="text-truncate" data-i18n="Logistics">Logistics</div>
-            <span class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="{% get_theme_variables 'live_preview' %}app/academy/dashboard/" class="menu-link" target="_blank">
-            <div class="text-truncate" data-i18n="Academy">Academy</div>
-            <span class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</span>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <!-- Layouts -->
-    <li class="menu-item {% if '/layouts/' in request.path  %}active open{% endif %}">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ri-layout-2-line"></i>
-        <div class="text-truncate" data-i18n="Layouts">Layouts</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item {% if '/without_menu/' in request.path %}active{% endif %}">
-          <a href="{% url 'layouts-without-menu' %}" class="menu-link">
-            <div class="text-truncate" data-i18n="Without menu">Without menu</div>
-          </a>
-        </li>
-        <li class="menu-item {% if '/without_navbar/' in request.path %}active{% endif %}">
-          <a href="{% url 'layouts-without-navbar' %}" class="menu-link">
-            <div class="text-truncate" data-i18n="Without navbar">Without navbar</div>
-          </a>
-        </li>
-        <li class="menu-item {% if '/container/' in request.path %}active{% endif %}">
-          <a href="{% url 'layouts-container' %}" class="menu-link">
-            <div class="text-truncate" data-i18n="Container">Container</div>
-          </a>
-        </li>
-        <li class="menu-item {% if '/fluid/' in request.path %}active{% endif %}">
-          <a href="{% url 'layouts-fluid' %}" class="menu-link">
-            <div class="text-truncate" data-i18n="Fluid">Fluid</div>
-          </a>
-        </li>
-        <li class="menu-item {% if '/blank/' in request.path %}active{% endif %}">
-          <a href="{% url 'layouts-blank' %}" class="menu-link">
-            <div class="text-truncate" data-i18n="Blank">Blank</div>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <!-- Front Pages -->
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class='menu-icon tf-icons ri-file-copy-line'></i>
-        <div class="text-truncate" data-i18n="Front Pages">Front Pages</div>
-        <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">PRO</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="{% get_theme_variables 'live_preview' %}front/landing/" class="menu-link" target="_blank">
-            <div class="text-truncate" data-i18n="Landing">Landing</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="{% get_theme_variables 'live_preview' %}front/pricing/" class="menu-link" target="_blank">
-            <div class="text-truncate" data-i18n="Pricing">Pricing</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="{% get_theme_variables 'live_preview' %}front/payment/" class="menu-link" target="_blank">
-            <div class="text-truncate" data-i18n="Payment">Payment</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="{% get_theme_variables 'live_preview' %}front/checkout/" class="menu-link" target="_blank">
-            <div class="text-truncate" data-i18n="Checkout">Checkout</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="{% get_theme_variables 'live_preview' %}front/help_center/" class="menu-link" target="_blank">
-            <div class="text-truncate" data-i18n="Help Center">Help Center</div>
-          </a>
-        </li>
       </ul>
     </li>
 
     <li class="menu-item">
-      <a href="{% get_theme_variables 'live_preview' %}transactions/list/" class="menu-link" target="_blank">
-        <i class="menu-icon tf-icons ri-database-2-line"></i>
-        <div class="text-truncate" data-i18n="Transactions (CRUD)">Transactions (CRUD)</div>
-        <span class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</span>
-      </a>
-    </li>
-
-    <li class="menu-header fw-medium mt-7">
-      <span class="menu-header-text">Apps &amp; Pages</span>
-    </li>
-
-    <li class="menu-item">
-      <a href="{% get_theme_variables 'live_preview' %}app/email/" class="menu-link" target="_blank">
-        <i class="menu-icon tf-icons ri-mail-open-line"></i>
-        <div class="text-truncate" data-i18n="Email">Email</div>
-        <span class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</span>
+      <a href="{% url 'pages-account-settings-account' %}" class="menu-link">
+        <i class="menu-icon tf-icons ri-radio-button-line"></i>
+        <div class="text-truncate" data-i18n="Account">First</div>
       </a>
     </li>
     <li class="menu-item">
-      <a href="{% get_theme_variables 'live_preview' %}app/chat/" class="menu-link" target="_blank">
-        <i class="menu-icon tf-icons ri-wechat-line"></i>
-        <div class="text-truncate" data-i18n="Chat">Chat</div>
-        <span class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</span>
+      <a href="{% url 'pages-account-settings-account' %}" class="menu-link">
+        <i class="menu-icon tf-icons ri-radio-button-line"></i>
+        <div class="text-truncate" data-i18n="Account">Second</div>
       </a>
     </li>
     <li class="menu-item">
-      <a href="{% get_theme_variables 'live_preview' %}app/calendar/" class="menu-link" target="_blank">
-        <i class="menu-icon tf-icons ri-calendar-line"></i>
-        <div class="text-truncate" data-i18n="Calendar">Calendar</div>
-        <span class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</span>
+      <a href="{% url 'pages-account-settings-account' %}" class="menu-link">
+        <i class="menu-icon tf-icons ri-radio-button-line"></i>
+        <div class="text-truncate" data-i18n="Account">Third</div>
       </a>
     </li>
-    <li class="menu-item">
-      <a href="{% get_theme_variables 'live_preview' %}app/kanban/" class="menu-link" target="_blank">
-        <i class="menu-icon tf-icons ri-drag-drop-line"></i>
-        <div class="text-truncate" data-i18n="Kanban">Kanban</div>
-        <span class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</span>
-      </a>
-    </li>
+    
     <!-- Account -->
     <li class="menu-item {% if '/account_settings/' in request.path %}active open{% endif %}">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
