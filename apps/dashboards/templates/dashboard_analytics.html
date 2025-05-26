@@ -22,7 +22,151 @@
 
 {% block content %}
 <div>
-  Hello World! This is the Analytics Dashboard.
-  
+  <h1 class="h3 mb-4">Bookshelf Dashboard</h1>
 </div>
-{% endblock %}
+<div class="d-flex gap-2 mb-4">
+  <div class="flex-fill">
+    <div class="card shadow-sm border-0 text-center h-100">
+      <div class="card-body py-3">
+        <div class="fs-3 fw-bold text-info">{{ bookshelves_count }}</div>
+        <div class="text-muted small">Bookshelf</div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-fill">
+    <div class="card shadow-sm border-0 text-center h-100">
+      <div class="card-body py-3">
+        <div class="fs-3 fw-bold text-info">{{ books_count }}</div>
+        <div class="text-muted small">Books</div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-fill">
+    <div class="card shadow-sm border-0 text-center h-100">
+      <div class="card-body py-3">
+        <div class="fs-3 fw-bold text-info">{{ authors_count }}</div>
+        <div class="text-muted small">Authors</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-header">
+        <h5 class="card-title">Bookshelf Analytics</h5>
+      </div>
+      <div class="card-body">
+        <div id="bookshelf-analytics-chart" style="height: 400px;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-header">
+        <h5 class="card-title">Bookshelf Activity</h5>
+      </div>
+      <div class="card-body">
+        <div id="bookshelf-activity-chart" style="height: 400px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% if books %}
+<div class="mt-4">
+  <div class="card shadow-sm border-0">
+    <div class="card-header">
+      <h5 class="card-title">Recent Books</h5>
+    </div>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        {% for book in books %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <h6 class="mb-1">{{ book.title }}</h6>
+            <small class="text-muted">by {{ book.author.full_name }}</small>
+          </div>
+          <span class="badge bg-primary rounded-pill">{{ book.created_at|date:"Y-m-d" }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endif %}
+<div class="mt-4">
+  <div class="card shadow-sm border-0">
+    <div class="card-header">
+      <h5 class="card-title">Recent Authors</h5>
+    </div>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        {% for author in authors %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <h6 class="mb-1">{{ author.full_name }}</h6>
+            <small class="text-muted">Joined on {{ author.joined_date|date:"Y-m-d" }}</small>
+          </div>
+          <span class="badge bg-secondary rounded-pill">{{ author.book_set.count }} books</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+
+<script>
+console.log("Script loaded");
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("DOM loaded");
+  // Try a simple chart
+  new ApexCharts(document.body, {
+    chart: { type: 'bar', height: 100 },
+    series: [{ data: [1,2,3] }],
+    xaxis: { categories: ['A','B','C'] }
+  }).render();
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  fetch('/charts/bookshelf-bar/')
+    .then(response => response.json())
+    .then(data => {
+      const options = {
+        chart: { type: 'bar', height: 350 },
+        series: [{ name: "Books", data: data.data }],
+        xaxis: { categories: data.labels },
+        colors: ['#6366f1'],
+        title: { text: "Books per Bookshelf" }
+      };
+      new ApexCharts(document.querySelector("#bookshelf-analytics-chart"), options).render();
+    });
+
+  fetch('/charts/bookshelf-line/')
+    .then(response => response.json())
+    .then(data => {
+      const options = {
+        chart: { type: 'area', height: 350 },
+        series: [{ name: "Books Added", data: data.data }],
+        xaxis: { categories: data.labels },
+        colors: ['#10b981'],
+        fill: {
+          type: "gradient",
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.6,
+            opacityTo: 0.1,
+            stops: [0, 100]
+          }
+        },
+        title: { text: "Books Added Per Month" }
+      };
+      new ApexCharts(document.querySelector("#bookshelf-activity-chart"), options).render();
+    });
+});
+</script>
+{% endblock scripts %}
