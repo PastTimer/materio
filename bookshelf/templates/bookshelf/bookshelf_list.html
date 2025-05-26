@@ -1,0 +1,51 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}Bookshelves{% endblock %}
+
+{% block page_js %}
+{{ block.super }}
+{% endblock page_js %}
+
+{% block content %}
+<div>
+  <h1 class="h3 mb-4">Bookshelves</h1>
+</div>
+<div class="card">
+  <h5 class="card-header">Bookshelf List</h5>
+  <div class="card-body">
+    {% if bookshelves %}
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Number of Books</th>
+              <th>Books</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for shelf in bookshelves %}
+              <tr>
+                <td>{{ shelf.name }}</td>
+                <td>{{ shelf.books.count }}</td>
+                <td>
+                  {% for book in shelf.books.all %}
+                    {{ book.title }}{% if not forloop.last %}, {% endif %}
+                  {% empty %}
+                    <span class="text-muted">No books</span>
+                  {% endfor %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="alert alert-info mb-0">No bookshelves available.</div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

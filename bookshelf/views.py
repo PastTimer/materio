@@ -5,21 +5,34 @@ from django.http import JsonResponse
 from django.db.models import Count
 from django.db.models.functions import ExtractMonth
 from datetime import datetime
+from web_project import TemplateLayout  # Add this import
 
 class AuthorListView(ListView):
     model = Author
     template_name = 'bookshelf/author_list.html'
     context_object_name = 'authors'
 
+    def get_context_data(self, **kwargs):
+        context = TemplateLayout.init(self, super().get_context_data(**kwargs))
+        return context
+
 class BookListView(ListView):
     model = Book
     template_name = 'bookshelf/book_list.html'
     context_object_name = 'books'
 
+    def get_context_data(self, **kwargs):
+        context = TemplateLayout.init(self, super().get_context_data(**kwargs))
+        return context
+
 class BookshelfListView(ListView):
     model = Bookshelf
     template_name = 'bookshelf/bookshelf_list.html'
     context_object_name = 'bookshelves'
+
+    def get_context_data(self, **kwargs):
+        context = TemplateLayout.init(self, super().get_context_data(**kwargs))
+        return context
 
 def books_per_bookshelf(request):
     data = (

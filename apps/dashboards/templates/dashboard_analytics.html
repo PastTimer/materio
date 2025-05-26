@@ -120,18 +120,6 @@
 {{ block.super }}
 
 <script>
-console.log("Script loaded");
-document.addEventListener("DOMContentLoaded", function () {
-  console.log("DOM loaded");
-  // Try a simple chart
-  new ApexCharts(document.body, {
-    chart: { type: 'bar', height: 100 },
-    series: [{ data: [1,2,3] }],
-    xaxis: { categories: ['A','B','C'] }
-  }).render();
-});
-</script>
-<script>
 document.addEventListener("DOMContentLoaded", function () {
   fetch('/charts/bookshelf-bar/')
     .then(response => response.json())
